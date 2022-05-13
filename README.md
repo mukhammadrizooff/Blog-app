@@ -18,8 +18,14 @@ Comming soon...
 
 ## Getting Started
 
-
 To get a local copy up and running follow these simple example steps.
+
+### Tests
+Run the tests
+run `bundle install` to install all the gems
+To run all the tests, please type in the terminal: `rspec`
+To run tests for the post controller: `rspec spec\posts_request_spec.rb`
+To run the tests for user controller: `rspec spec\users_request_spec.rb`
 
 ### Prerequisites
 
