@@ -1,8 +1,4 @@
 class Comment < ApplicationRecord
-  belongs_to :author, foreign_key: 'User'
-  belongs_to :post, foreign_key: 'post_id'
-
-  def update_comments_counter
-    post.increment!(:comments_counter)
-  end
+  belongs_to :user, class_name: 'User', foreign_key: 'user_id', inverse_of: :comments
+  belongs_to :post, class_name: 'Post', foreign_key: 'post_id', inverse_of: :comments
 end
