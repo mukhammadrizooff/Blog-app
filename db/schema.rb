@@ -10,45 +10,45 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 20_220_514_000_611) do
+ActiveRecord::Schema[7.0].define(version: 20_220_517_211_605) do
   # These are extensions that must be enabled in order to support this database
   enable_extension 'plpgsql'
 
   create_table 'comments', force: :cascade do |t|
     t.text 'text'
+    t.bigint 'user_id', null: false
+    t.bigint 'post_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.bigint 'post_id', null: false
-    t.bigint 'user_id', null: false
     t.index ['post_id'], name: 'index_comments_on_post_id'
     t.index ['user_id'], name: 'index_comments_on_user_id'
   end
 
   create_table 'likes', force: :cascade do |t|
+    t.bigint 'user_id', null: false
+    t.bigint 'post_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.bigint 'post_id', null: false
-    t.bigint 'user_id', null: false
     t.index ['post_id'], name: 'index_likes_on_post_id'
     t.index ['user_id'], name: 'index_likes_on_user_id'
   end
 
   create_table 'posts', force: :cascade do |t|
-    t.string 'Title'
-    t.string 'Text'
-    t.integer 'CommentsCounter'
-    t.integer 'LikesCounter'
+    t.string 'title'
+    t.text 'text'
+    t.integer 'commentsCounter'
+    t.integer 'likesCounter'
+    t.bigint 'user_id', null: false
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
-    t.bigint 'user_id', null: false
     t.index ['user_id'], name: 'index_posts_on_user_id'
   end
 
   create_table 'users', force: :cascade do |t|
-    t.string 'Name'
-    t.string 'Photo'
-    t.string 'Bio'
-    t.integer 'PostsCounter'
+    t.string 'name'
+    t.string 'photo'
+    t.text 'bio'
+    t.integer 'postsCounter'
     t.datetime 'created_at', null: false
     t.datetime 'updated_at', null: false
   end
