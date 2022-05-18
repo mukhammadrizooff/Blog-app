@@ -1,0 +1,10 @@
+<header>
+  <div class="container">
+    <%= link_to 'My Blog', users_path %>
+    <nav>
+      <%= link_to 'Home', users_path %>
+      <%= link_to 'Profile', user_path(@current_user.id) %>
+      <%= link_to 'New Post', new_post_path %>
+    </nav>
+  <div>
+</header>
