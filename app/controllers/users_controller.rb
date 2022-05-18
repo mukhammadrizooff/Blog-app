@@ -1,9 +1,11 @@
 class UsersController < ApplicationController
   def index
-    render 'user_list'
+    @users = User.all.order(id: :asc)
+    @current_user = current_user
   end
 
   def show
-    render 'user_details'
+    @current_user = current_user
+    @user = User.find(params[:id])
   end
 end
