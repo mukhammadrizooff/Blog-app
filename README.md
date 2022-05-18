@@ -35,7 +35,7 @@ To run the tests for user controller: `rspec spec\users_request_spec.rb`
 
 ### Install
 
-- Run the commant `git clone https://github.com/gabyse1/blog-app.git` to clone this repository to your local computer. Choose the location you prefer.
+- Run the commant `git clone https://github.com/mukhammadrizooff/Blog-app.git` to clone this repository to your local computer. Choose the location you prefer.
 - Run the command `bundle install` to install all project's dependencies.
 
 ### Usage
