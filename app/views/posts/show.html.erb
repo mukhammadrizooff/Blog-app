@@ -1,0 +1,6 @@
+<%= render 'post_card', post: @post, detailed: true %>
+<% if @post.commentsCounter > 0 %>
+  <div class="group__box">
+    <%= render partial: 'comments/comment_card', collection: @post.comments, as: :comment%>
+  </div>
+<% end %>
