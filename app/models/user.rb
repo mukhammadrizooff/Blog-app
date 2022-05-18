@@ -6,4 +6,8 @@ class User < ApplicationRecord
   def most_recent_posts(items = 3)
     posts.order(created_at: :desc).take(items)
   end
+
+  def posts_desc_order
+    posts.order(created_at: :desc)
+  end
 end
