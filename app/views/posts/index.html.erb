@@ -7,7 +7,7 @@
   <%= render 'post_card', post: post, detailed: false %>
   <% if post.commentsCounter > 0 %>
     <div class="card__box">
-      <%= render partial: 'comments/comment_card', collection: post.comments.first(5), as: :comment%>
+      <%= render partial: 'comments/comment_card', collection: post.comments.first(5), as: :comment %>
     </div>
     </div>
   <% end %>
