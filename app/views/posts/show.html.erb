@@ -4,3 +4,4 @@
     <%= render partial: 'comments/comment_card', collection: @post.comments, as: :comment%>
   </div>
 <% end %>
+<%= render 'layouts/alert', flash: flash %>

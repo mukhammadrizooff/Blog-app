@@ -47,7 +47,7 @@ To run the tests for user controller: `rspec spec\users_request_spec.rb`
 
 ## Authors
 
-👤 **Gabriela Sánchez Espirilla**
+👤 **Muhammad Rizo**
 
 - GitHub: [@mukhammadrizooff](https://github.com/mukhammadrizooff)
 - LinkedIn: [LinkedIn](https://www.linkedin.com/in/mukhammadrizooff/)
