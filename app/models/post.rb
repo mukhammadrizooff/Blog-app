@@ -6,6 +6,10 @@ class Post < ApplicationRecord
   after_create :increment_posts_counter
   after_destroy :decrement_posts_counter
 
+  validates :title, presence: true, length: { maximum: 250 }
+  validates :comments_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+
   def most_recent_comments(items = 5)
     comments.order(created_at: :desc).take(items)
   end
