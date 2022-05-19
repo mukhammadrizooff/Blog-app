@@ -1,13 +1,13 @@
 <%= render 'users/user_card', user: @user %>
 <%= render 'layouts/alert', flash: flash %>
-<% @posts_comments.each do |post| %>
+<% @posts_and_comments.each do |post| %>
   <% if post.commentsCounter > 0 %>
     <div class="group__box">
   <% end %>
   <%= render 'post_card', post: post, detailed: false %>
   <% if post.commentsCounter > 0 %>
-    <div class="post__comments">
-      <%= render partial: 'comments/comment_card', collection: post.most_recent_comments, as: :comment%>
+    <div class="card__box">
+      <%= render partial: 'comments/comment_card', collection: post.comments.first(5), as: :comment %>
     </div>
     </div>
   <% end %>

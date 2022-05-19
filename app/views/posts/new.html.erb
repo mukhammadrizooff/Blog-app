@@ -1,9 +1,9 @@
 <div class="form__container">
 <%= tag.h1('New Post', class: 'form__title') %>
+<%= render 'layouts/alert', flash: flash %>
 <%= form_with model: Post.new do |f| %>
   <%= f.text_field :title, placeholder: 'Title' %>
   <%= f.text_area :text, rows: 20, placeholder: 'Enter the content' %>
   <%= f.submit 'Save' %>
 <% end %>
-<%= render 'layouts/alert', flash: flash %>
 </div>
