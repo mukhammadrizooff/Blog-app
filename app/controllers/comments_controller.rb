@@ -6,6 +6,7 @@ class CommentsController < ApplicationController
   end
 
   def create
+    @current_user = current_user
     @comment = current_user.comments.new(comment_params)
     @post = Post.find(params[:post_id])
     @comment.post = @post
@@ -14,7 +15,7 @@ class CommentsController < ApplicationController
       redirect_to user_post_url(@post.user.id, @post.id)
     else
       flash.now[:error] = @comment.errors.full_messages.to_sentence
-      render :new, locals: { post: @post }, status: 422
+      render :new, locals: { user: @current_user, post: @post }, status: 422
     end
   end
 
