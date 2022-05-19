@@ -5,6 +5,10 @@ class Like < ApplicationRecord
   after_create :increment_likes_counter
   after_destroy :decrement_likes_counter
 
+  validates :user, presence: true
+  validates :post, presence: true
+  validates :user_id, uniqueness: { scope: :post_id }
+
   private
 
   def increment_likes_counter
