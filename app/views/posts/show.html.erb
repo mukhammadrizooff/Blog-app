@@ -1,7 +1,8 @@
+<%= render 'layouts/alert', flash: flash %>
 <%= render 'post_card', post: @post, detailed: true %>
 <% if @post.commentsCounter > 0 %>
-  <div class="group__box">
-    <%= render partial: 'comments/comment_card', collection: @post.comments, as: :comment%>
+  <div class="card__box">
+    <%= tag.h3('Comments:', class: 'card__title') %>
+    <%= render partial: 'comments/comment_card', collection: @post.comments, as: :comment %>
   </div>
-<% end %>
-<%= render 'layouts/alert', flash: flash %>
+<% end %> 
