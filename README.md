@@ -1,5 +1,5 @@
 # BLOG APP
-Comming soon....
+Comming soon...
 
 
 ## Features
