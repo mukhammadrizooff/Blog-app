@@ -1,1 +1,5 @@
-<%= render partial: 'user_card', collection: @users, as: :user %>
+<%= render partial: 'user_card', collection: @users, as: :user %>a<%  @users.each  do |user| %>
+<a href="/users/<%= user.id %>" class="link" >
+<%= render partial: "user_card", object: user, as: 'user' %>
+</a>
+<% end %>
