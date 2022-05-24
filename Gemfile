@@ -82,3 +82,11 @@ group :test do
 end
 
 gem 'ffi'
+
+gem 'devise'
+
+gem 'bootstrap_form', '~> 5.0'
+
+gem 'bootstrap-sass'
+
+gem 'webpacker', '~> 5.0'
