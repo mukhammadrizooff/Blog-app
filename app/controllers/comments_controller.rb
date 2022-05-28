@@ -1,22 +1,26 @@
 class CommentsController < ApplicationController
-  def new
-    @current_user = current_user
+  load_and_authorize_resource
+  def create
     @post = Post.find(params[:post_id])
-    render :new, locals: { user: @current_user, post: @post }
+    @comment = current_user.comments.new(comment_params)
+    @comment.post_id = @post.id
+    if @comment.save
+      flash[:success] = 'Comment was created'
+      redirect_to "/users/#{@post.user_id}/posts/#{@post.id}"
+    else
+      redirect_to "/users/#{@post.user_id}/posts/#{@post.id}"
+      flash[:danger] = 'Comment was not created, please fill in all fields'
+    end
   end
 
-  def create
-    @current_user = current_user
-    @comment = current_user.comments.new(comment_params)
-    @post = Post.find(params[:post_id])
-    @comment.post = @post
-    if @comment.save
-      flash[:success] = 'Your comment saved successfully'
-      redirect_to user_post_url(@post.user.id, @post.id)
-    else
-      flash.now[:error] = @comment.errors.full_messages.to_sentence
-      render :new, locals: { user: @current_user, post: @post }, status: 422
-    end
+  def destroy
+    @comment = Comment.find(params[:comment_id])
+    @post = Post.find(@comment.post_id)
+    @post.comments_counter -= 1
+    @comment.destroy!
+    @post.save
+    flash[:success] = 'You have deleted this comment successfully!'
+    redirect_to user_post_path(current_user.id, @comment.post_id)
   end
 
   private

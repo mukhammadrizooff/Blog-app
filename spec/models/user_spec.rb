@@ -1,44 +1,22 @@
 require 'rails_helper'
 
-RSpec.describe User, type: :model do
-  user = User.new(name: 'Rizo', bio: 'I am a Full-stack developer', posts_counter: 0, photo: 'https://images.pexels.com/photos/12003167/pexels-photo-12003167.jpeg?auto=compress&cs=tinysrgb&dpr=3&h=750&w=1260')
+RSpec.describe Comment, type: :model do
+  describe 'Comment model' do
+    subject { User.new(name: 'TestUser', posts_counter: 0) }
+    before { subject.save }
 
-  before(:each) { user.save }
-
-  it 'validates the presence of the name' do
-    user.name = nil
-    expect(user).to_not be_valid
-  end
-
-  it 'validates the presence of the posts_counter' do
-    user.posts_counter = nil
-    expect(user).to_not be_valid
-  end
-
-  it 'validates the numericality of the posts_counter' do
-    user.posts_counter = 'a'
-    expect(user).to_not be_valid
-  end
-
-  it 'validates the presence of the bio' do
-    user.bio = nil
-    expect(user).to_not be_valid
-  end
-
-  it 'validates the presence of the photo' do
-    user.photo = nil
-    expect(user).to_not be_valid
-  end
-
-  describe '#recent_posts' do
-    before(:each) do
-      5.times do |i|
-        Post.new(title: "Post #{i}", text: "text#{i}", comments_counter: 0, likes_counter: 0, author_id: user.id)
-      end
+    it 'User should be valid' do
+      expect(subject).to be_valid
     end
 
-    it 'returns the last 3 posts' do
-      expect(user.recent_posts).to eq(Post.order(created_at: :desc).limit(3))
+    it 'Name should be present' do
+      subject.name = nil
+      expect(subject).to_not be_valid
+    end
+
+    it 'Posts_counter should be more or equal to 0' do
+      subject.posts_counter = -1
+      expect(subject).to_not be_valid
     end
   end
 end
