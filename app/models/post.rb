@@ -1,26 +1,23 @@
-class Post < ApplicationRecord
-  belongs_to :user, class_name: 'User', foreign_key: 'user_id', inverse_of: :posts
-  has_many :comments, class_name: 'Comment', foreign_key: 'post_id', inverse_of: :post, dependent: :destroy
-  has_many :likes, class_name: 'Like', foreign_key: 'post_id', inverse_of: :post, dependent: :destroy
-
-  after_create :increment_posts_counter
-  after_destroy :decrement_posts_counter
+class Post < ActiveRecord::Base
+  belongs_to :author, class_name: 'User', foreign_key: :user_id
+  has_many :likes, dependent: :destroy
+  has_many :comments, dependent: :destroy
 
   validates :title, presence: true, length: { maximum: 250 }
-  validates :comments_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
-  validates :likes_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0, allow_nil: true }
+  validates :comments_counter, numericality: { only_integer: true }, comparison: { greater_than_or_equal_to: 0 }
+  validates :likes_counter, numericality: { only_integer: true }, comparison: { greater_than_or_equal_to: 0 }
 
-  def most_recent_comments(items = 5)
-    comments.order(created_at: :desc).take(items)
+  def five_last_comments
+    comments.order('created_at Desc').limit(5)
   end
 
-  private
+  after_save :update_posts_counter
 
-  def increment_posts_counter
-    user.increment!(:postsCounter)
+  def liked?(user)
+    !!likes.find { |like| like.user_id == user.id }
   end
 
-  def decrement_posts_counter
-    user.decrement!(:postsCounter)
+  def update_posts_counter
+    author.increment!(:posts_counter)
   end
 end

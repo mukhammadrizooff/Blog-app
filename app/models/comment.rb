@@ -1,21 +1,12 @@
-class Comment < ApplicationRecord
-  belongs_to :user, class_name: 'User', foreign_key: 'user_id', inverse_of: :comments
-  belongs_to :post, class_name: 'Post', foreign_key: 'post_id', inverse_of: :comments
+class Comment < ActiveRecord::Base
+  belongs_to :author, class_name: 'User', foreign_key: :user_id
+  belongs_to :post
 
-  after_create :increment_comments_counter
-  after_destroy :decrement_comments_counter
-
-  validates :user, presence: true
-  validates :post, presence: true
   validates :text, presence: true
 
-  private
+  after_save :update_comments_counter
 
-  def increment_comments_counter
-    post.increment!(:commentsCounter)
-  end
-
-  def decrement_comments_counter
-    post.decrement!(:commentsCounter)
+  def update_comments_counter
+    post.increment!(:comments_counter)
   end
 end

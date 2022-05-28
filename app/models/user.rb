@@ -1,18 +1,21 @@
-class User < ApplicationRecord
+class User < ActiveRecord::Base
+  # Include default devise modules. Others available are:
+  # :confirmable, :lockable, :timeoutable, :trackable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :validatable
-  has_many :posts, class_name: 'Post', foreign_key: 'user_id'
-  has_many :comments, class_name: 'Comment', foreign_key: 'user_id'
-  has_many :likes, class_name: 'Like', foreign_key: 'user_id'
+         :recoverable, :rememberable, :validatable, :confirmable
+
+  has_many :comments, foreign_key: :user_id
+  has_many :posts, foreign_key: :user_id
+  has_many :likes, foreign_key: :user_id
 
   validates :name, presence: true
-  validates :posts_counter, numericality: { only_integer: true, greater_than_or_equal_to: 0 }
+  validates :posts_counter, numericality: { only_integer: true }, comparison: { greater_than_or_equal_to: 0 }
 
-  def most_recent_posts(items = 3)
-    posts.order(created_at: :desc).take(items)
+  def three_recent_post
+    posts.order('created_at Desc').limit(3)
   end
 
-  def posts_desc_order
-    posts.order(created_at: :desc)
+  def admin?
+    :role == 'admin'
   end
 end
